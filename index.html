@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js"></script>
+    <title>終極密碼</title>
+    
+    <link rel="stylesheet" href="./css/all.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>終極密碼</h1>
+        </header>
+        <main>
+
+            <h2>請輸入你猜測的數字</h2>
+            <label for="guessInput"></label>
+            <input type="number" name="guessNumber" id="guessInput" 
+            placeholder="請輸入數字" autofocus="autofocus"
+            v-model="guess" @keyup.enter="comparision" :disabled="disabled">
+            <button type="button" class="btnSend" @click="comparision">確認</button>
+            <h3>數字範圍 {{n1}} ~ {{n2}}</h3>
+            <h3>此次猜錯次數:{{counter}}</h3>
+            <h4>{{messageText}}</h4>
+
+            <button class="btnRefresh" @click="refresh">{{btnrefresh}}</button>
+        </main>
+    
+    </div>
+    
+    <script>
+        const App = {
+            data() {
+                return {
+                    n1:0,
+                    n2:99,
+                    counter:0,
+                    answer:'',
+                    guess:'',
+                    messageText:'來猜猜看吧',
+                    disabled: false,
+                    btnrefresh:'重新設定謎底數字'
+                }
+            },
+            methods: {
+                createNumber(){
+                    let answerNumber = Math.floor(Math.random()*100)
+                    console.log(answerNumber)
+                    return this.answer = answerNumber ;
+                },
+                comparision(){
+                    let typeGuess = parseInt(this.guess);
+                    let typeAnswer = parseInt(this.answer);
+                    
+                    if(typeGuess < this.n1 || typeGuess > this.n2 ){
+                        this.messageText = '數字無效，請重新輸入';
+                        this.guess = '';
+                        this.counterNumber()
+                    } else if(this.guess == ''){
+                        this.messageText = '你沒有輸入數字，請輸入數字';
+                    }
+                    
+                    
+                    if (typeGuess == typeAnswer){
+                        this.messageText = '恭喜猜對數字'
+                        this.disabled = true
+                        this.btnrefresh = '再來一局'
+                    } else if(typeGuess < typeAnswer && typeGuess > this.n1){
+                        this.n1 = typeGuess
+                        this.guess = '';
+                        this.messageText = '繼續吧 加油好嗎?'
+                        this.counterNumber()
+                    } else if(typeGuess > typeAnswer && typeGuess < this.n2){
+                        this.n2 = typeGuess
+                        this.guess = '';
+                        this.messageText = '加油好嗎?'
+                        this.counterNumber()
+                    }
+                },
+                refresh(){
+                    
+                    this.guess = ''
+                    this.messageText = '來猜猜看吧'
+                    this.n1 = 0
+                    this.n2 = 99
+                    this.btnrefresh = '重新設定謎底數字'
+                    this.disabled = false
+                    this.counter = 0
+                    this.createNumber()
+                },
+                counterNumber(){
+                    this.counter++
+                }
+
+            },
+
+            created() {
+                this.createNumber()
+            },
+        }
+        
+
+        Vue.createApp(App).mount('#app');
+    </script>
+</body>
+</html>

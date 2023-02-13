@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+body header {
+  background-color: rgb(243, 238, 86);
+}
+body header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+}
+body main {
+  text-align: center;
+  padding: 1rem;
+}
+body main h2 {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
+body main input#guessInput {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  text-align: center;
+  width: 150px;
+}
+body main button.btnSend {
+  font-size: 1.3rem;
+}
+body main h3 {
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+body main h4 {
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+body main button.btnRefresh {
+  font-size: 1.5rem;
+}/*# sourceMappingURL=all.css.map */
